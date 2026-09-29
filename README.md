@@ -1,8 +1,13 @@
 # Dashboard WAR — Piratas de Campeche / LMB 2026
 
-**Estado:** ✅ Publicado y funcionando.
+**Estado:** ✅ Publicado y funcionando. También en GitHub: https://github.com/Sergio-B94/LMB-WAR (repo público).
 **Link del dashboard (Artifact):** https://claude.ai/code/artifact/cb7c99b6-13f1-448c-b26d-93f7cb823b1e
-**Snapshot de datos actual:** 19 de agosto de 2026 (Piratas iba 52-41, 93 juegos jugados).
+**Snapshot de datos actual:** 19 de agosto de 2026 (Piratas iba 52-41, 93 juegos jugados; temporada
+regular de 93 juegos ya estaba terminada para Piratas en esa fecha). El **29 de septiembre de 2026**
+se hizo un refresco parcial: se agregaron las columnas **H (Hits)** a bateo y **K (Ponches)** a
+pitcheo de liga, jalando Hits en vivo de la API para los 18 equipos que no tenía guardados — ver
+sección 7 ("Adición de columnas H/K"). El resto de las métricas (WAR, OPS+, ERA+, wRC+, etc.) siguen
+siendo el snapshot original del 19-ago.
 
 Este documento existe para que una conversación futura (con contexto nuevo, sin memoria de esta)
 pueda retomar el proyecto sin tener que re-descubrir nada de lo que costó tiempo encontrar la
@@ -289,6 +294,34 @@ Esto es lo que haría una sesión futura si el usuario pide "actualiza el dashbo
   relevistas: ninguno tiene datos disponibles vía esta API.
 - El emoji 🏴‍☠️ como favicon del Artifact se mantuvo estable entre republicaciones (regla de
   Artifacts: no cambiar el favicon salvo pivote de tema).
+
+### Adición de columnas H/K (29-sep-2026)
+
+El dashboard había crecido, en una sesión anterior no documentada aquí, a un selector de las **20
+equipos** de la LMB (`OTHER_TEAMS` / `ZONA_NORTE_TEAMS` en el HTML), además de las pestañas
+Piratas/Liga originales — este README no reflejaba esa estructura hasta ahora. Al pedir agregar
+**Hits** a bateo y **Ponches (K)** a pitcheo:
+
+- **K ya existía** en todos los datos de pitcheo (equipo y liga) — solo faltaba la columna en la
+  tabla "Toda la liga" (`ligaPitTable`); en las tablas por equipo ya se mostraba (columna con
+  encabezado `"P"`, de "Ponches").
+- **H (Hits) no existía en ningún lado.** Para Piratas y para los 130 bateadores calificados de
+  "Toda la liga" se pudo sacar de `data/piratas_hit.json` y `data/liga_hit.json` (ya guardados). Para
+  los otros 18 equipos del selector no había datos crudos guardados, así que se volvió a consultar
+  `GET /estadisticas/api/player?categoryType=hitting&playerPool=ALL&...` **sin filtro de equipo**
+  (464 bateadores de toda la liga, 47 páginas) y se cruzó por nombre — el campo `team_name` de la
+  API ya viene por jugador, así que no hizo falta descubrir `teamId` de cada equipo. Ese fetch quedó
+  guardado en `data/hitting_all_teams_2026-09-29.csv` y el script de mezcla en
+  `scripts/add_hits_k_columns.py`.
+- **87 jugadores** habían cambiado de equipo entre el 19-ago y el 29-sep (normal, mes y medio de
+  temporada) — el script de mezcla primero intenta emparejar por equipo+nombre, y si no encuentra,
+  cae a una búsqueda por nombre en toda la liga (con chequeo de ambigüedad). Los `�` que se ven en
+  nombres como "El Águila" al imprimir con Bash/PowerShell **no son corrupción real** — es la
+  limitación de esas terminales para mostrar acentos (confirmado con `chr(0xFFFD)` count = 0 en el
+  archivo); el HTML en sí está limpio.
+- Se publicó el proyecto completo (dashboard, datos, scripts, este README) en un repositorio público
+  de GitHub: https://github.com/Sergio-B94/LMB-WAR — para no perder el trabajo y tener base para la
+  temporada 2027.
 
 ### Bug de codificación (mojibake) — cuidado si tocas el archivo con PowerShell
 
