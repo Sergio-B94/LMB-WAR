@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "lmb-dashboard",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["scripts/serve.py"],
+      "port": 8935
+    }
+  ]
+}

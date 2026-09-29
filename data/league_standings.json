@@ -1,0 +1,25 @@
+{
+  "note": "G, P, CA (carreras anotadas) por equipo, LMB temporada regular 2026, via lmb.com.mx/posiciones",
+  "teams": [
+    {"name":"Toros","G":60,"P":31,"CA":454},
+    {"name":"Caliente","G":51,"P":42,"CA":534},
+    {"name":"Sultanes","G":49,"P":44,"CA":455},
+    {"name":"Charros","G":48,"P":45,"CA":502},
+    {"name":"Acereros","G":48,"P":45,"CA":482},
+    {"name":"Algodoneros","G":46,"P":47,"CA":541},
+    {"name":"Rieleros","G":42,"P":47,"CA":529},
+    {"name":"Saraperos","G":38,"P":55,"CA":451},
+    {"name":"Tecos","G":36,"P":57,"CA":398},
+    {"name":"Dorados","G":35,"P":58,"CA":516},
+    {"name":"Diablos Rojos","G":64,"P":29,"CA":725},
+    {"name":"Olmecas","G":54,"P":38,"CA":478},
+    {"name":"Piratas","G":52,"P":41,"CA":489},
+    {"name":"Pericos","G":50,"P":42,"CA":520},
+    {"name":"Bravos","G":50,"P":43,"CA":643},
+    {"name":"Guerreros","G":48,"P":45,"CA":573},
+    {"name":"El Aguila","G":43,"P":50,"CA":431},
+    {"name":"Tigres","G":43,"P":50,"CA":386},
+    {"name":"Conspiradores","G":35,"P":58,"CA":544},
+    {"name":"Leones","G":33,"P":58,"CA":368}
+  ]
+}
